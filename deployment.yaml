@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Prasad-Kuber
+  namespace: default
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: Prasad-Kuber
+  template:
+    metadata:
+      labels:
+        app: Prasad-Kuber
+    spec:
+    containers:
+      - name: Prasad-Kuber-pod
+        image: arungupta/Prasad-Kuber-spring-boot:latest
+        ports: 
+        - containerPort: 80
+        - containerPort: 443
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: Prasad-Kuber-service
+spec:
+  selector:
+    app: Prasad-Kuber
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
